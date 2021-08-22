@@ -29,6 +29,7 @@ fetchApi(city);
 SearchForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     const searchValue = Search.value;
+    searchValue.replaceAll(' ','%20')
     if (searchValue) {
         city = searchValue;
         fetchApi(city);
