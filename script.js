@@ -13,7 +13,7 @@ function fetchApi(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`)
         .then((resp) => resp.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             Icon.src ="https://openweathermap.org/img/wn/" + data.weather[0].icon + ".png";
             CityName.innerHTML = data.name;
             Weather.innerHTML = Math.floor(data.main.temp) + "&#176" + "C";
@@ -35,5 +35,21 @@ SearchForm.addEventListener("submit", (e)=>{
         fetchApi(city);
         Search.value = "";
     }
+   
+    bgByCity(searchValue)
 });
+bgByCity("yerevan")
 
+function bgByCity(name) {
+    const API = 'https://api.unsplash.com/search/photos?query='+ name +'&per_page=30&client_id=SouHY7Uul-OxoMl3LL3c0NkxUtjIrKwf3tsGk1JaiVo';
+    fetch(API).then(resp=>{
+        if (!resp.ok) throw Error(resp.statusText);
+    return resp.json();
+    })
+    .then(data=>{
+        console.log(data)
+        let random =Math.floor(Math.random() * 25);
+        const img = data.results[random];
+        document.body.style.backgroundImage = `url(${img.urls.full})`
+    })
+}
